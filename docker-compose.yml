@@ -2,24 +2,23 @@ version: '2'
 services:
   apachephp:
     build: docker/apache-php7-dev
-    container_name: superleansilexplate-dev
+    container_name: property_manager-dev
     ports:
       - 8088:80
     links:
-      - typo3-db:db
+      - mysql:db
     volumes:
-      - ./:/var/www/app
-      - ./upload:/var/www/upload
-      - ./public_html:/var/www/html
-      - ./fonts:/usr/share/fonts
+      - ./:/var/www
+    volumes_from:
+        - Data
     restart: 'no' #always
-  typo3-db:
+  mysql:
     build: ./docker/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=typoalphaport
-      - MYSQL_USER=typoalphaport
-      - MYSQL_PASSWORD=9bsGhtpHy[SFZ?eAZxdc
-      - MYSQL_DATABASE=typoalphaport
+      - MYSQL_ROOT_PASSWORD=property_manager
+      - MYSQL_USER=property_manager
+      - MYSQL_PASSWORD=property_manager
+      - MYSQL_DATABASE=property_manager
     ports:
       - '3306:3306'
     restart: 'no' #always
@@ -28,3 +27,10 @@ services:
   DatabaseData:
     image: mysql:5.6.25
     entrypoint: /bin/bash
+  Data:
+    image: busybox
+    volumes:
+      - /var/www/var/cache
+      - /var/www/var/logs
+      - /var/www/var/sessions
+
