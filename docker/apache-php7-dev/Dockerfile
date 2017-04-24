@@ -18,5 +18,6 @@ RUN docker-php-ext-install gd
 
 COPY php.ini /usr/local/etc/php/
 COPY apache2.conf /etc/apache2/apache2.conf
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
-WORKDIR /var/www/app
+WORKDIR /var/www
