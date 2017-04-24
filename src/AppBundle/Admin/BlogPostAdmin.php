@@ -12,12 +12,12 @@ class BlogPostAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Content', array('class' => 'col-md-9'))
+            ->with('Content')
             ->add('title', 'text')
             ->add('body', 'textarea')
             ->end()
 
-            ->with('Meta data', array('class' => 'col-md-3')
+            ->with('Meta data')
             ->add('category', 'sonata_type_model', array(
                 'class' => 'AppBundle\Entity\Category',
                 'property' => 'name',
@@ -26,14 +26,19 @@ class BlogPostAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper->add('name');
-    }
-
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper
+            ->addIdentifier('category_id')
+            ->addIdentifier('title')
+            ->addIdentifier('body');
+    }
+
+    public function toString($object)
+    {
+        return $object instanceof BlogPost
+            ? $object->getTitle()
+            : 'Blog Post'; // shown in the breadcrumb on the create view
     }
 }
 
