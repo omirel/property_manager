@@ -80,3 +80,9 @@ docker exec -it property_manager-dev php bin/console doctrine:schema:create
 
 b.) Update schema: 
 docker exec -it property_manager-dev php bin/console doctrine:schema:update --force 
+
+
+3. Admin-User
+
+docker exec -it property_manager-
+dev php bin/console fos:user:create omirel olaf@mirel.de 12345 --super-admin
