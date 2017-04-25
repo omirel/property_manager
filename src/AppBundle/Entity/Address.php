@@ -59,9 +59,9 @@ class Address
     /**
      * @var int
      *
-     * @ORM\Column(name="country_id", type="integer", length=11)
+     * @ORM\Column(name="country", type="string", length=255)
      */
-    private $countryId;
+    private $country;
 
     /**
      * @var string
@@ -202,27 +202,27 @@ class Address
     }
 
     /**
-     * Set countryId
+     * Set country
      *
-     * @param \integer $countryId
+     * @param string $country
      *
      * @return Address
      */
-    public function setCountryId(\integer $countryId)
+    public function setCountry($country)
     {
-        $this->countryId = $countryId;
+        $this->country = $country;
 
         return $this;
     }
 
     /**
-     * Get countryId
+     * Get country
      *
-     * @return \int
+     * @return string
      */
-    public function getCountryId()
+    public function getCountry()
     {
-        return $this->countryId;
+        return $this->country;
     }
 
     /**
