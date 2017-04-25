@@ -22,66 +22,24 @@ class TenantAddress
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tenant_id", type="integer", length=11)
-     * @ORM\ManyToOne(targetEntity="Tenant", inversedBy="tenants")
+     * @ORM\ManyToOne(targetEntity="Tenant", inversedBy="tenantAddresses")
      */
-    private $tenantId;
+    private $tenant;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="address_id", type="integer", length=11)
-     * @ORM\ManyToOne(targetEntity="Address", inversedBy="addresses")
+     * @ORM\ManyToOne(targetEntity="Address", inversedBy="tenantAddresses")
      */
-    private $addressId;
+    private $address;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="address_type_id", type="integer", length=11)
-     * @ORM\ManyToOne(targetEntity="AddressType", inversedBy="addressTypes")
+     * @ORM\ManyToOne(targetEntity="AddressType", inversedBy="tenantAddresses")
+     *
      */
-    private $addressTypeId;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Tenant", mappedBy="tenantId")
-     */
-    private $tenants;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="addressId")
-     */
-    private $addresses;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AddressType", mappedBy="addressTypeId")
-     */
-    private $addressTypes;
-
-    public function __construct()
-    {
-        $this->addresses = new ArrayCollection();
-        $this->addressTypes = new ArrayCollection();
-        $this->tenants = new ArrayCollection();
-    }
-
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-
-    public function getAddressTypes()
-    {
-        return $this->addressTypes;
-    }
-
-    public function getTenants()
-    {
-        return $this->tenants;
-    }
-
+    private $addressType;
 
     /**
      * Get id
@@ -93,76 +51,40 @@ class TenantAddress
         return $this->id;
     }
 
-    /**
-     * Set tenantId
-     *
-     * @param \integer $tenantId
-     *
-     * @return TenantAddress
-     */
-    public function setTenantId(\integer $tenantId)
+    public function setTenant(Tenant $tenant)
     {
-        $this->tenantId = $tenantId;
+        $this->tenant = $tenant;
 
         return $this;
     }
 
-    /**
-     * Get tenantId
-     *
-     * @return \int
-     */
-    public function getTenantId()
+    public function getTenant()
     {
-        return $this->tenantId;
+        return $this->tenant;
     }
 
-    /**
-     * Set addressId
-     *
-     * @param \integer $addressId
-     *
-     * @return TenantAddress
-     */
-    public function setAddressId(\integer $addressId)
+    public function setAddress(Address $address)
     {
-        $this->addressId = $addressId;
+        $this->address = $address;
 
         return $this;
     }
 
-    /**
-     * Get addressId
-     *
-     * @return \int
-     */
-    public function getAddressId()
+    public function getAddress()
     {
-        return $this->addressId;
+        return $this->address;
     }
 
-    /**
-     * Set addressTypeId
-     *
-     * @param \integer $addressTypeId
-     *
-     * @return TenantAddress
-     */
-    public function setAddressTypeId(\integer $addressTypeId)
+    public function setAddressType(AddressType $addressType)
     {
-        $this->addressTypeId = $addressTypeId;
+        $this->addressType = $addressType;
 
         return $this;
     }
 
-    /**
-     * Get addressTypeId
-     *
-     * @return \int
-     */
-    public function getAddressTypeId()
+    public function getAddressType()
     {
-        return $this->addressTypeId;
+        return $this->addressType;
     }
 }
 

@@ -40,9 +40,9 @@ surname:string(255) \
 docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
 --entity="AppBundle:TenantAddress" \
 --fields=" \
-tenantId:int(11) \
-addressId:int(11) \
-addressTypeId:int(11) \
+tenant \
+address \
+address \
 " \
 --no-interaction;
 

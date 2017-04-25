@@ -42,6 +42,20 @@ class Tenant
      */
     private $surname;
 
+    /**
+     * @ORM\OneToMany(targetEntity="TenantAddress", mappedBy="tenant")
+     */
+    private $tenantAddresses;
+
+    public function __construct()
+    {
+        $this->tenantAddresses = new ArrayCollection();
+    }
+
+    public function getTenantAddresses()
+    {
+        return $this->tenantAddresses;
+    }
 
     /**
      * Get id
