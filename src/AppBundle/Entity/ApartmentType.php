@@ -3,14 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * AddressType
+ * ApartmentType
  *
- * @ORM\Table(name="address_type")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AddressTypeRepository")
+ * @ORM\Table(name="apartment_type")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ApartmentTypeRepository")
  */
-class AddressType
+class ApartmentType
 {
     /**
      * @var int
@@ -28,9 +29,24 @@ class AddressType
      */
     private $title;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Apartment", mappedBy="apartmentType")
+     */
+    private $apartments;
+
+    public function __construct()
+    {
+        $this->apartments = new ArrayCollection();
+    }
+
+    public function getApartments()
+    {
+        return $this->apartments;
+    }
+
     public function __toString()
     {
-        return $this->getTitle();
+        return 'Apartment: '.$this->getTitle();
     }
 
     /**
@@ -48,7 +64,7 @@ class AddressType
      *
      * @param string $title
      *
-     * @return AddressType
+     * @return ApartmentType
      */
     public function setTitle($title)
     {

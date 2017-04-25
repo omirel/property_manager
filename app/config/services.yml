@@ -7,6 +7,21 @@ services:
   #service_name:
   #    class: AppBundle\Directory\ClassName
   #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+  admin.buildings:
+      class: AppBundle\Admin\BuildingAdmin
+      arguments: [~, AppBundle\Entity\Building, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: Buildings }
+  admin.apartments:
+      class: AppBundle\Admin\ApartmentAdmin
+      arguments: [~, AppBundle\Entity\Apartment, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: Apartments }
+  admin.apartment_types:
+      class: AppBundle\Admin\ApartmentTypeAdmin
+      arguments: [~, AppBundle\Entity\ApartmentType, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: Apartments Types}
   admin.address:
       class: AppBundle\Admin\AddressAdmin
       arguments: [~, AppBundle\Entity\Address, ~]

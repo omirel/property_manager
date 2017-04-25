@@ -42,10 +42,35 @@ docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
 --fields=" \
 tenant \
 address \
+addressType \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Building" \
+--fields=" \
+fullName:string(255) \
+shortName:string(50) \
 address \
 " \
 --no-interaction;
 
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:ApartmentType" \
+--fields=" \
+title:string(255) \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Apartment" \
+--fields=" \
+fullName:string(255) \
+shortName:string(50) \
+building \
+apartmentType \
+" \
+--no-interaction;
 
 
 2. Db - Schema

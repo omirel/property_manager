@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Address
@@ -70,6 +71,25 @@ class Address
      */
     private $otherAddressDetails;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Building", mappedBy="address")
+     */
+    private $buildingAddresses;
+
+    public function __construct()
+    {
+        $this->buildingAddresses = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getLine1().', '.$this->getLine2();
+    }
+
+    public function getBuildingAddresses()
+    {
+        return $this->buildingAddresses;
+    }
 
     /**
      * Get id
