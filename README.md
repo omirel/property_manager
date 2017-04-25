@@ -51,7 +51,7 @@ addressTypeId:int(11) \
 2. Db - Schema
 
 a.) Create schema: 
-php bin/console doctrine:schema:create
+docker exec -it property_manager-dev php bin/console doctrine:schema:create
 
 b.) Update schema: 
-php bin/console doctrine:schema:update --force 
+docker exec -it property_manager-dev php bin/console doctrine:schema:update --force 
