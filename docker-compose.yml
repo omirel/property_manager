@@ -6,7 +6,7 @@ services:
     ports:
       - 8088:80
     links:
-      - mysql:db
+      - 'mysql:db'
     volumes:
       - ./:/var/www
     volumes_from:
@@ -20,7 +20,7 @@ services:
       - MYSQL_PASSWORD=property_manager
       - MYSQL_DATABASE=property_manager
     ports:
-      - '3306:3306'
+      - '3307:3306'
     restart: 'no' #always
     volumes_from:
       - DatabaseData

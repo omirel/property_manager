@@ -3,7 +3,7 @@
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
     database_host: db
-    database_port: ~
+    database_port: 3307
     database_name: property_manager
     database_user: property_manager
     database_password: property_manager
