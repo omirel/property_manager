@@ -12,11 +12,22 @@ class PersonAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->with('Content', array('class' => 'col-md-6'))
             ->add('firstname', 'text')
             ->add('middlename', 'text')
             ->add('surname', 'text')
             ->add('gender', 'text')
             ->add('dateOfBirth', 'date')
+            ->end()
+            ->with('Meta', array('class' => 'col-md-6'))
+//            ->add('addresses', 'sonata_type_model', array(
+//                'class' => 'AppBundle\Entity\PersonAddress',
+//                // 'property' => 'zipOrPostcode',
+//            ))
+//            ->add('addresses', 'sonata_type_model', array(
+//                'class' => 'AppBundle\Entity\PersonAddress',
+//            ))
+            ->end()
         ;
     }
 

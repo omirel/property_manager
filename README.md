@@ -40,6 +40,15 @@ dateOfBirth:datetime \
 --no-interaction;
 
 docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:PersonAddress" \
+--fields=" \
+person \
+address \
+addressType \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
 --entity="AppBundle:Tenant" \
 --fields=" \
 firstname:string(255) \

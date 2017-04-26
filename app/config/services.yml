@@ -27,6 +27,11 @@ services:
       arguments: [~, AppBundle\Entity\ApartmentType, ~]
       tags:
         - { name: sonata.admin, manager_type: orm, label: Apartments Types}
+  admin.person_addresses:
+      class: AppBundle\Admin\PersonAddressAdmin
+      arguments: [~, AppBundle\Entity\PersonAddress, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: People Addresses }
   admin.address:
       class: AppBundle\Admin\AddressAdmin
       arguments: [~, AppBundle\Entity\Address, ~]
@@ -34,14 +39,14 @@ services:
         - { name: sonata.admin, manager_type: orm, label: Addresses }
   admin.address_types:
         class: AppBundle\Admin\AddressTypeAdmin
-        arguments: [~, AppBundle\Entity\AddressType, ~]
+        arguments: [~, AppBundle\Entity\AddressType, 'SonataAdminBundle:CRUD']
         tags:
           - { name: sonata.admin, manager_type: orm, label: Address Types}
   admin.people:
     class: AppBundle\Admin\PersonAdmin
     arguments: [~, AppBundle\Entity\Person, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, label: People }
+      - { name: sonata.admin, manager_type: orm, group: YourGroup, label: People }
   admin.tenant:
     class: AppBundle\Admin\TenantAdmin
     arguments: [~, AppBundle\Entity\Tenant, ~]

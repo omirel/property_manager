@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Person
@@ -52,10 +53,35 @@ class Person
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_of_birth", type="datetime")
+     * @ORM\Column(name="date_of_birth", type="date")
      */
     private $dateOfBirth;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PersonAddress", mappedBy="person_id", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    protected $addresses;
+
+    public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getFirstname().' '.$this->getSurname();
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return ArrayCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
 
     /**
      * Get id
@@ -166,7 +192,7 @@ class Person
     /**
      * Set dateOfBirth
      *
-     * @param \DateTime $dateOfBirth
+     * @param \Date $dateOfBirth
      *
      * @return Person
      */
@@ -180,7 +206,7 @@ class Person
     /**
      * Get dateOfBirth
      *
-     * @return \DateTime
+     * @return \Date
      */
     public function getDateOfBirth()
     {
