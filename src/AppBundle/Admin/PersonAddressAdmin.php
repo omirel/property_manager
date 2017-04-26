@@ -9,12 +9,16 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class PersonAddressAdmin extends AbstractAdmin
 {
+    protected $parentAssociationMapping = 'person'; // This does the trick..
+
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->add('person', 'sonata_type_model', array(
+        if (!$this->isChild())
+            $formMapper->add('person', 'sonata_type_model', array(
                 'class' => 'AppBundle\Entity\Person',
-            ))
+            ));
+
+        $formMapper
             ->add('address', 'sonata_type_model', array(
                 'class' => 'AppBundle\Entity\Address',
             ))
@@ -26,8 +30,10 @@ class PersonAddressAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if (!$this->isChild())
+            $datagridMapper->add('person');
+
         $datagridMapper
-            ->add('person')
             ->add('address')
             ->add('addressType')
         ;
@@ -35,8 +41,10 @@ class PersonAddressAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        if (!$this->isChild())
+            $listMapper->addIdentifier('person');
+
         $listMapper
-            ->addIdentifier('person')
             ->addIdentifier('address')
             ->addIdentifier('addressType')
         ;

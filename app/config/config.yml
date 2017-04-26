@@ -85,6 +85,11 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+jms_di_extra:
+    annotation_patterns:
+        - JMS\DiExtraBundle\Annotation
+        - Sonata\AdminBundle\Annotation
+
 sonata_admin:
     security:
       # the default value
@@ -99,6 +104,7 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts: [admin]
+
         # ...
 #sonata_media:
 #    # if you don't use default namespace configuration

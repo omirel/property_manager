@@ -44,9 +44,11 @@ services:
           - { name: sonata.admin, manager_type: orm, label: Address Types}
   admin.people:
     class: AppBundle\Admin\PersonAdmin
-    arguments: [~, AppBundle\Entity\Person, ~]
+    arguments: [~, AppBundle\Entity\Person, 'SonataAdminBundle:CRUD']
     tags:
       - { name: sonata.admin, manager_type: orm, group: YourGroup, label: People }
+    calls:
+      - [addChild, ['@admin.person_addresses']]
   admin.tenant:
     class: AppBundle\Admin\TenantAdmin
     arguments: [~, AppBundle\Entity\Tenant, ~]

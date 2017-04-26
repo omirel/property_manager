@@ -58,7 +58,7 @@ class Person
     private $dateOfBirth;
 
     /**
-     * @ORM\OneToMany(targetEntity="PersonAddress", mappedBy="person_id", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="PersonAddress", mappedBy="person", cascade={"all"}, orphanRemoval=true)
      * @ORM\OrderBy({"id" = "ASC"})
      */
     protected $addresses;

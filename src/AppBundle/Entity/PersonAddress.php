@@ -43,8 +43,15 @@ class PersonAddress
 
     public function __toString()
     {
-        return "ddsaADSAD";
-        return $this->getPerson()->getFirstname().' '.$this->getAddress()->getLine1();
+        $str = '';
+
+        if (is_object($this->getPerson()))
+            $str .= $this->getPerson()->getFirstname();
+
+        if (is_object($this->getAddress()))
+            $str .= $this->getAddress()->getLine1();
+
+        return $str;
     }
 
     /**
