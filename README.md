@@ -29,6 +29,17 @@ title:string(255) \
 --no-interaction;
 
 docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Person" \
+--fields=" \
+firstname:string(255) \
+middlename:string(255) \
+surname:string(255) \
+gender:string(1) \
+dateOfBirth:datetime \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
 --entity="AppBundle:Tenant" \
 --fields=" \
 firstname:string(255) \

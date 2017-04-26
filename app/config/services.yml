@@ -37,6 +37,11 @@ services:
         arguments: [~, AppBundle\Entity\AddressType, ~]
         tags:
           - { name: sonata.admin, manager_type: orm, label: Address Types}
+  admin.people:
+    class: AppBundle\Admin\PersonAdmin
+    arguments: [~, AppBundle\Entity\Person, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: People }
   admin.tenant:
     class: AppBundle\Admin\TenantAdmin
     arguments: [~, AppBundle\Entity\Tenant, ~]
