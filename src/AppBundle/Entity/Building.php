@@ -36,7 +36,8 @@ class Building extends Base
     private $address;
 
     /**
-     * @ORM\OneToMany(targetEntity="Apartment", mappedBy="building")
+     * @ORM\OneToMany(targetEntity="Apartment", mappedBy="building", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $apartments;
 

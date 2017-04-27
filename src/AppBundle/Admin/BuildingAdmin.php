@@ -3,13 +3,35 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 
 class BuildingAdmin extends AbstractAdmin
 {
     public $supportsPreviewMode = true;
+
+    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin && !in_array($action, array('edit'))) {
+            return;
+        }
+        $admin = $this->isChild() ? $this->getParent() : $this;
+        $id = $admin->getRequest()->get('id');
+
+        $menu->addChild(
+            $this->trans('Building Details'),
+            array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+        );
+
+        $menu->addChild(
+            $this->trans('Apartments'),
+            array('uri' => $admin->getRouteGenerator()->generate('admin_app_building_apartment_list', array('id' => $id)))
+        );
+    }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -25,37 +47,22 @@ class BuildingAdmin extends AbstractAdmin
                     ))
                 ->end()
             ->end()
+            /*
             ->tab('Apartments', array('class' => 'col-md-6'))
-//                ->add('apartments', 'sonata_type_collection')
                 ->add('apartments',
                 'sonata_type_collection',
                 array(
                     'btn_add' => 'Add new Apartment',
                 ), array(
+                    // 'by_reference' => true,
                     'edit' => 'inline',
                     'inline' => 'table',
-//                    'sortable' => 'position',
+                    'sortable'  => 'position'
                 )
             )
             ->end()
+            */
         ;
-
-//        $subject = $this->getSubject();
-//
-//        if ($subject->isNew()) {
-//            // The thumbnail field will only be added when the edited item is created
-//            $formMapper->add('thumbnail', 'file');
-//        }
-//
-//        // Name field will be added only when create an item
-//        if ($this->isCurrentRoute('create')) {
-//            $formMapper->add('name', 'text');
-//        }
-//
-//        // The foo field will added when current action is related acme.demo.admin.code Admin's edit form
-//        if ($this->isCurrentRoute('edit', 'acme.demo.admin.code')) {
-//            $formMapper->add('foo', 'text');
-//        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -80,11 +87,24 @@ class BuildingAdmin extends AbstractAdmin
             'actions' => array(
                 'show' => array(),
                 'edit' => array(),
-                'apartments' => array(
+                'create' => array(
                     'template' => 'list__action_apartments.html.twig',
                 )
             )
         ));
+    }
+
+    /**
+     * @param ShowMapper $show
+     */
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('fullName')
+            ->add('shortName')
+            ->add('address')
+            ->add('apartments')
+        ;
     }
 }
 

@@ -17,14 +17,12 @@ class ApartmentAdmin extends AbstractAdmin
         if ($this->isChild()) {
 
             // This is the route configuration as a child
-            $collection->clearExcept(['create', 'show', 'edit']);
-
+            // $collection->clearExcept(['create', 'show', 'edit']);
             return;
         }
 
         // This is the route configuration as a parent
-        $collection->clearExcept(['create', 'show', 'edit']);
-       //  $collection->clear();
+        $collection->clear();
 
     }
 
@@ -40,10 +38,12 @@ class ApartmentAdmin extends AbstractAdmin
                     ->end()
 
                     ->with('Meta data', array('class' => 'col-md-6'))
+            /*
                     ->add('building', 'sonata_type_model', array(
                         'class' => 'AppBundle\Entity\Building',
                         'btn_add' => false
                     ))
+            */
                     ->add('apartmentType', 'sonata_type_model', array(
                         'class' => 'AppBundle\Entity\ApartmentType',
                         'btn_add' => false
@@ -76,7 +76,7 @@ class ApartmentAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('fullName')
             ->addIdentifier('shortName')
-            ->add('building')
+            // ->add('building')
             ->add('apartmentType')
             ->add('floorNumber')
             ->add('apartmentNumber')

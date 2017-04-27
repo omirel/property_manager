@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -48,6 +49,44 @@ class AddressAdmin extends BaseAdmin
     {
         $listMapper
             ->addIdentifier('line1')
+            ->add('line2')
+            ->add('line3')
+            ->add('zipOrPostcode')
+            ->add('stateProvinceCounty')
+            ->add('country', 'choice', array(
+                'choices' => array(
+                    'DE' => 'Germany',
+                    'UA' => 'Ukraine',
+                ),
+                'catalogue' => 'AppBundle'
+            ))
+            ->add('createdAt')
+            ->add('otherAddressDetails', 'text', array(
+                'header_style' => 'width: 35%',
+                'collapse' => array(
+                    'height' => 40, // height in px
+                    'read_more' => 'I want to see the full description', // content of the "read more" link
+                    'read_less' => 'This text is too long, reduce the size' // content of the "read less" link
+                )
+            ))
+        ;
+
+        $listMapper->add('_action', 'actions', array(
+            'actions' => array(
+                'show' => array(),
+                'edit' => array(),
+            )
+        ));
+    }
+
+
+    /**
+     * @param ShowMapper $show
+     */
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('line1')
             ->add('line2')
             ->add('line3')
             ->add('zipOrPostcode')
