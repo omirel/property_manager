@@ -10,18 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="person")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Person
+class Person extends Base
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -83,14 +75,12 @@ class Person
         return $this->addresses;
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function addAddress($personAddress)
     {
-        return $this->id;
+        $personAddress->setPerson($this);
+        $this->addresses->add($personAddress);
+
+        return $this;
     }
 
     /**

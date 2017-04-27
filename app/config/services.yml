@@ -7,56 +7,52 @@ services:
   #service_name:
   #    class: AppBundle\Directory\ClassName
   #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
-  admin.users:
-      class: AppBundle\Admin\UserAdmin
-      arguments: [~, AppBundle\Entity\User, ~]
-      tags:
-        - { name: sonata.admin, manager_type: orm, label: Users }
-  admin.buildings:
-      class: AppBundle\Admin\BuildingAdmin
-      arguments: [~, AppBundle\Entity\Building, ~]
-      tags:
-        - { name: sonata.admin, manager_type: orm, label: Buildings }
   admin.apartments:
       class: AppBundle\Admin\ApartmentAdmin
       arguments: [~, AppBundle\Entity\Apartment, ~]
       tags:
-        - { name: sonata.admin, manager_type: orm, label: Apartments }
-  admin.apartment_types:
-      class: AppBundle\Admin\ApartmentTypeAdmin
-      arguments: [~, AppBundle\Entity\ApartmentType, ~]
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Apartments }
+  admin.buildings:
+      class: AppBundle\Admin\BuildingAdmin
+      arguments: [~, AppBundle\Entity\Building, ~]
       tags:
-        - { name: sonata.admin, manager_type: orm, label: Apartments Types}
-  admin.person_addresses:
-      class: AppBundle\Admin\PersonAddressAdmin
-      arguments: [~, AppBundle\Entity\PersonAddress, ~]
-      tags:
-        - { name: sonata.admin, manager_type: orm, label: People Addresses }
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Buildings }
+      calls:
+        - [addChild, ['@admin.apartments']]
   admin.address:
       class: AppBundle\Admin\AddressAdmin
       arguments: [~, AppBundle\Entity\Address, ~]
       tags:
-        - { name: sonata.admin, manager_type: orm, label: Addresses }
-  admin.address_types:
-        class: AppBundle\Admin\AddressTypeAdmin
-        arguments: [~, AppBundle\Entity\AddressType, 'SonataAdminBundle:CRUD']
-        tags:
-          - { name: sonata.admin, manager_type: orm, label: Address Types}
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Addresses }
+
+
   admin.people:
     class: AppBundle\Admin\PersonAdmin
-    arguments: [~, AppBundle\Entity\Person, 'SonataAdminBundle:CRUD']
+    arguments: [~, AppBundle\Entity\Person, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: YourGroup, label: People }
+      - { name: sonata.admin, manager_type: orm, group: Basic Data, label: People }
     calls:
       - [addChild, ['@admin.person_addresses']]
-  admin.tenant:
-    class: AppBundle\Admin\TenantAdmin
-    arguments: [~, AppBundle\Entity\Tenant, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, label: Tenants }
-  admin.tenant_addresses:
-    class: AppBundle\Admin\TenantAddressAdmin
-    arguments: [~, AppBundle\Entity\TenantAddress, ~]
-    tags:
-        - { name: sonata.admin, manager_type: orm, label: Tenant Addresses }
+  admin.users:
+      class: AppBundle\Admin\UserAdmin
+      arguments: [~, AppBundle\Entity\User, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Basic Data, label: Users }
+  admin.person_addresses:
+          class: AppBundle\Admin\PersonAddressAdmin
+          arguments: [~, AppBundle\Entity\PersonAddress, ~]
+          tags:
+            - { name: sonata.admin, manager_type: orm, group: Basic Data, label: People Addresses }
+
+
+  admin.apartment_types:
+      class: AppBundle\Admin\ApartmentTypeAdmin
+      arguments: [~, AppBundle\Entity\ApartmentType, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: System, label: Apartments Types}
+  admin.address_types:
+        class: AppBundle\Admin\AddressTypeAdmin
+        arguments: [~, AppBundle\Entity\AddressType, ~]
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: System, label: Address Types}
 

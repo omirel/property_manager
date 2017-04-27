@@ -6,31 +6,52 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class ApartmentAdmin extends AbstractAdmin
 {
+    protected $parentAssociationMapping = 'building';
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        if ($this->isChild()) {
+
+            // This is the route configuration as a child
+            $collection->clearExcept(['create', 'show', 'edit']);
+
+            return;
+        }
+
+        // This is the route configuration as a parent
+        $collection->clearExcept(['create', 'show', 'edit']);
+       //  $collection->clear();
+
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Tab 1', array('class' => 'col-md-6'))
+            ->tab('Basic Data', array('class' => 'col-md-6'))
                 ->with('Content', array('class' => 'col-md-4'))
                     ->add('fullName', 'text')
                     ->add('shortName', 'text')
+                    ->add('floorNumber', 'integer')
+                    ->add('apartmentNumber', 'text')
                     ->end()
 
                     ->with('Meta data', array('class' => 'col-md-6'))
                     ->add('building', 'sonata_type_model', array(
                         'class' => 'AppBundle\Entity\Building',
+                        'btn_add' => false
                     ))
                     ->add('apartmentType', 'sonata_type_model', array(
                         'class' => 'AppBundle\Entity\ApartmentType',
+                        'btn_add' => false
                     ))
                 ->end()
             ->end()
-            ->tab('Tab 2')
-                ->with('Facts', array('class' => 'col-md-6'))
-                ->add('floorNumber', 'integer')
-                ->add('apartmentNumber', 'text')
+            ->tab('Details')
+                ->with('Rooms', array('class' => 'col-md-6'))
                 ->add('roomCount', 'integer')
                 ->add('bathroomCount', 'integer')
                 ->add('bedroomCount', 'integer')
@@ -54,10 +75,11 @@ class ApartmentAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('fullName')
-            ->addIdentifier('building')
-            ->addIdentifier('apartmentType')
-            ->addIdentifier('floorNumber')
-            ->addIdentifier('apartmentNumber')
+            ->addIdentifier('shortName')
+            ->add('building')
+            ->add('apartmentType')
+            ->add('floorNumber')
+            ->add('apartmentNumber')
         ;
     }
 }

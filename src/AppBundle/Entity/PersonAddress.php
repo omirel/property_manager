@@ -4,30 +4,30 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * PersonAddress
  *
- * @ORM\Table(name="person_address")
+ * @ORM\Table(
+ *     name="person_address",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="person_address", columns={"person_id", "address_id", "address_type_id"})}
+ * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonAddressRepository")
+ * @UniqueEntity(
+ *     fields={"person", "address", "addressType"},
+ *     errorPath="addressType",
+ *     message="This addressType is already in use for that person."
+ * )
+ * @ORM\HasLifecycleCallbacks
  */
-class PersonAddress
+class PersonAddress extends Base
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @ORM\ManyToOne(targetEntity="Person")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     private $person;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="Address")
@@ -51,17 +51,10 @@ class PersonAddress
         if (is_object($this->getAddress()))
             $str .= $this->getAddress()->getLine1();
 
-        return $str;
-    }
+        if (is_object($this->getAddressType()))
+            $str .= ' / '.$this->getAddressType();
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
+        return $str;
     }
 
     public function setPerson(Person $person)

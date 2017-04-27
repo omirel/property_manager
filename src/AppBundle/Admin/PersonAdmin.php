@@ -14,38 +14,39 @@ class PersonAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Content', array('class' => 'col-md-6'))
+            ->with('Content', array(
+                'class' => 'col-md-6',
+                'description' => 'This section contains general person settings...'
+            ))
             ->add('firstname', 'text')
-            ->add('middlename', 'text')
+            ->add('middlename', null, array(
+                'help' => 'Set the middlename only of it exists'
+            ))
             ->add('surname', 'text')
-            ->add('gender', 'text')
+            ->add('gender', 'choice', array(
+                'choices' => array(
+                    'Male' => 'm',
+                    'Female' => 'f',
+                )
+            ))
             ->add('dateOfBirth', 'date')
             ->end()
-            ->with('extra content', array(
+            ->with('Addresses & Communication', array(
                 'class' => 'col-md-6',
-                'box_class'   => 'box box-solid box-danger',
+                'box_class'   => 'box box-solid box-info',
                 'description' => 'Lorem ipsum',
             ))
             ->add('addresses')
-//            ->add('addresses', 'sonata_type_model', array(
-//                'class' => 'AppBundle\Entity\Person',
-//            ))
-//            ->add('addresses', 'entity', array(
-//                'class' => 'AppBundle\Entity\PersonAddress'
-//            ))
-//            ->add('addresses', null, array(
-//                'format' => 'Y-m-d H:i',
-//                'timezone' => 'America/New_York'
-//            ))
-            // ->add('addresses')
-//            ->add('addresses', 'sonata_type_model', array(
-//                'class' => 'AppBundle\Entity\PersonAddress',
-//                // 'property' => 'zipOrPostcode',
-//            ))
-//            ->add('addresses', 'sonata_type_model', array(
-//                'class' => 'AppBundle\Entity\PersonAddress',
-//                'property' => 'addresses.person',
-//            ))
+//            ->add('addresses',
+//                'sonata_type_collection',
+//                array(
+//                    'btn_add' => 'add xxx',
+//                ), array(
+//                    'edit' => 'inline',
+//                    'inline' => 'table',
+//                    'sortable' => 'position',
+//                )
+//            )
             ->end()
         ;
     }
@@ -58,11 +59,11 @@ class PersonAdmin extends AbstractAdmin
         $admin = $this->isChild() ? $this->getParent() : $this;
         $id = $admin->getRequest()->get('id');
         $menu->addChild(
-            $this->trans('admin.sidemenu.link_view_A'),
+            $this->trans('Person basic data'),
             array('uri' => $admin->generateUrl('edit', array('id' => $id)))
         );
         $menu->addChild(
-            $this->trans('admin.sidemenu.link_view_AB'),
+            $this->trans('Person Address data'),
             array('uri' => $admin->generateUrl('admin.person_addresses.list', array('id' => $id)))
         );
     }
@@ -82,10 +83,18 @@ class PersonAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('firstname')
-            ->addIdentifier('middlename')
-            ->addIdentifier('surname')
-            ->addIdentifier('gender')
-            ->addIdentifier('dateOfBirth')
+            ->add('middlename')
+            ->add('surname')
+            ->add('gender', 'choice', array(
+                'choices' => array(
+                    'm' => 'Male',
+                    'f' => 'Female',
+                ),
+                'catalogue' => 'AppBundle'
+            ))
+            ->add('dateOfBirth', null, array(
+                'format' => 'd.m.Y'
+            ))
             ->addIdentifier('addresses')
             ->add('_action', null, array(
                 'actions' => array(

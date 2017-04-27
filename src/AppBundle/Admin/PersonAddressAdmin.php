@@ -21,9 +21,11 @@ class PersonAddressAdmin extends AbstractAdmin
         $formMapper
             ->add('address', 'sonata_type_model', array(
                 'class' => 'AppBundle\Entity\Address',
+                'btn_add' => 'add new address',
             ))
             ->add('addressType', 'sonata_type_model', array(
                 'class' => 'AppBundle\Entity\AddressType',
+                'btn_add' => false,
             ))
         ;
     }

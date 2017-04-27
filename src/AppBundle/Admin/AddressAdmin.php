@@ -7,18 +7,27 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class AddressAdmin extends AbstractAdmin
+class AddressAdmin extends BaseAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('line1', 'text')
+//            ->add('line1', 'sonata_type_model_autocomplete', array(
+//                'class' => 'AppBundle\Entity\Address',
+//                'property' => 'line1'
+//            ))
             ->add('line2', 'text')
             ->add('line3', 'text')
             ->add('zipOrPostcode', 'text')
             ->add('stateProvinceCounty', 'text')
-            ->add('country', 'text')
-            ->add('otherAddressDetails', 'text')
+            ->add('country', 'choice', array(
+                'choices' => array(
+                    'Ukraine' => 'UA',
+                    'Germany' => 'DE',
+                )
+            ))
+            ->add('otherAddressDetails', 'textarea')
         ;
     }
 
@@ -39,12 +48,26 @@ class AddressAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('line1')
-            ->addIdentifier('line2')
-            ->addIdentifier('line3')
-            ->addIdentifier('zipOrPostcode')
-            ->addIdentifier('stateProvinceCounty')
-            ->addIdentifier('country')
-            ->addIdentifier('otherAddressDetails')
+            ->add('line2')
+            ->add('line3')
+            ->add('zipOrPostcode')
+            ->add('stateProvinceCounty')
+            ->add('country', 'choice', array(
+                'choices' => array(
+                    'DE' => 'Germany',
+                    'UA' => 'Ukraine',
+                ),
+                'catalogue' => 'AppBundle'
+            ))
+            ->add('createdAt')
+            ->add('otherAddressDetails', 'text', array(
+                'header_style' => 'width: 35%',
+                'collapse' => array(
+                    'height' => 40, // height in px
+                    'read_more' => 'I want to see the full description', // content of the "read more" link
+                    'read_less' => 'This text is too long, reduce the size' // content of the "read less" link
+                )
+            ))
         ;
     }
 }

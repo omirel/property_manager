@@ -9,18 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="apartment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ApartmentRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Apartment
+class Apartment extends Base
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -82,14 +74,9 @@ class Apartment
      */
     private $bedroomCount;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->getShortName() ?: '';
     }
 
     /**

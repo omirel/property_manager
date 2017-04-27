@@ -10,18 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="address")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AddressRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Address
+class Address extends Base
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -83,7 +75,7 @@ class Address
 
     public function __toString()
     {
-        return $this->getLine1().', '.$this->getLine2();
+        return $this->getLine1().' '.$this->getLine2().',  '.$this->getZipOrPostcode().' '.$this->getLine3();
     }
 
     public function getBuildingAddresses()

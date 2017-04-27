@@ -10,18 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="building")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BuildingRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Building
+class Building extends Base
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -61,16 +53,6 @@ class Building
     public function __toString()
     {
         return $this->getFullName().', '.$this->getShortName();
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
