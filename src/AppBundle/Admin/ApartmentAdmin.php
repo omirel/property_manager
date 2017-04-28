@@ -35,9 +35,9 @@ class ApartmentAdmin extends AbstractAdmin
                     ->add('shortName', 'text')
                     ->add('floorNumber', 'integer')
                     ->add('apartmentNumber', 'text')
-                    ->end()
+                ->end()
 
-                    ->with('Meta data', array('class' => 'col-md-6'))
+                ->with('Meta data', array('class' => 'col-md-6'))
             /*
                     ->add('building', 'sonata_type_model', array(
                         'class' => 'AppBundle\Entity\Building',
@@ -52,9 +52,24 @@ class ApartmentAdmin extends AbstractAdmin
             ->end()
             ->tab('Details')
                 ->with('Rooms', array('class' => 'col-md-6'))
-                ->add('roomCount', 'integer')
-                ->add('bathroomCount', 'integer')
-                ->add('bedroomCount', 'integer')
+                    ->add('roomCount', 'integer')
+                    ->add('bathroomCount', 'integer')
+                    ->add('bedroomCount', 'integer')
+                ->end()
+            ->end()
+            ->tab('Meters')
+                ->with('Apartment Meters', array('class' => 'col-md-6'))
+                    // ->add('meters'
+                    ->add('meters', 'sonata_type_model', array(
+                        'multiple' => true,
+                        'by_reference' => false
+                        )
+                    )
+//            ->add('meters', 'sonata_type_model', array(
+//                        'class' => 'AppBundle\Entity\Meter',
+//                        'btn_add' => 'Add new meter'
+//                    ))
+                ->end()
             ->end()
         ;
     }
@@ -80,6 +95,7 @@ class ApartmentAdmin extends AbstractAdmin
             ->add('apartmentType')
             ->add('floorNumber')
             ->add('apartmentNumber')
+            ->add('meters')
         ;
     }
 }

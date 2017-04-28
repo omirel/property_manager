@@ -93,6 +93,40 @@ apartmentType \
 --no-interaction;
 
 
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:MeterType" \
+--fields=" \
+title:string(255) \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Unit" \
+--fields=" \
+title:string(255) \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Meter" \
+--fields=" \
+meterType
+number:string(255) \
+unit \
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Meterreading" \
+--fields=" \
+meter
+date:date()
+value:float()
+" \
+--no-interaction;
+
+
 2. Db - Schema
 
 a.) Create schema: 

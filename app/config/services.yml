@@ -7,6 +7,8 @@ services:
   #service_name:
   #    class: AppBundle\Directory\ClassName
   #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+  # Properties
   admin.address:
       class: AppBundle\Admin\AddressAdmin
       arguments: [~, AppBundle\Entity\Address, ~]
@@ -24,8 +26,20 @@ services:
       arguments: [~, AppBundle\Entity\Apartment, ~]
       tags:
         - { name: sonata.admin, manager_type: orm, group: Properties, label: Apartments }
+  admin.meters:
+      class: AppBundle\Admin\MeterAdmin
+      arguments: [~, AppBundle\Entity\Meter, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Meters }
+      calls:
+        - [addChild, ['@admin.meter_readings']]
+  admin.meter_readings:
+      class: AppBundle\Admin\MeterreadingAdmin
+      arguments: [~, AppBundle\Entity\Meterreading, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Meter Readings }
 
-
+  #Basic Data
   admin.people:
     class: AppBundle\Admin\PersonAdmin
     arguments: [~, AppBundle\Entity\Person, ~]
@@ -44,7 +58,7 @@ services:
           tags:
             - { name: sonata.admin, manager_type: orm, group: Basic Data, label: People Addresses }
 
-
+  #System
   admin.apartment_types:
       class: AppBundle\Admin\ApartmentTypeAdmin
       arguments: [~, AppBundle\Entity\ApartmentType, ~]
@@ -55,4 +69,14 @@ services:
         arguments: [~, AppBundle\Entity\AddressType, ~]
         tags:
           - { name: sonata.admin, manager_type: orm, group: System, label: Address Types}
+  admin.meter_types:
+        class: AppBundle\Admin\MeterTypeAdmin
+        arguments: [~, AppBundle\Entity\MeterType, ~]
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: System, label: Meter Types}
+  admin.units:
+        class: AppBundle\Admin\UnitAdmin
+        arguments: [~, AppBundle\Entity\Unit, ~]
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: System, label: Units}
 

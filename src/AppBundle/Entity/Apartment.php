@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -74,9 +75,51 @@ class Apartment extends Base
      */
     private $bedroomCount;
 
+    /**
+     * Many Apartments have Many Meters
+     * @ORM\ManyToMany(targetEntity="Meter", inversedBy="apartments")
+     * @ORM\JoinTable(
+     *      name="apartment_meter",
+     *      joinColumns={@ORM\JoinColumn(name="apartment_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="meter_id", referencedColumnName="id")}
+     *      )
+     */
+    private $meters;
+
+    public function __construct() {
+        $this->meters = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->getShortName() ?: '';
+    }
+
+    public function getMeters()
+    {
+        return $this->meters;
+    }
+
+    public function setMeters(ArrayCollection $meters) {
+        $this->meters = $meters;
+    }
+
+    public function addMeter(Meter $meter) {
+        if ($this->meters->contains($meter)) {
+            return;
+        }
+
+        $this->meters->add($meter);
+        $meter->addApartment($this);
+    }
+
+    public function removeMeter(Meter $meter) {
+        if (!$this->meters->contains($meter)) {
+            return;
+        }
+
+        $this->meters->removeElement($meter);
+        $meter->removeApartment($this);
     }
 
     /**
