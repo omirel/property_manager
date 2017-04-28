@@ -126,6 +126,44 @@ value:float()
 " \
 --no-interaction;
 
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Tenant" \
+--fields=" \
+letting
+person
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:CostType" \
+--fields=" \
+title
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Letting" \
+--fields=" \
+apartment
+dateStart:date()
+dateEnd:date()
+price:float()
+currency:float
+" \
+--no-interaction;
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:LettingSidecost" \
+--fields=" \
+letting
+costType
+dateStart:date()
+dateEnd:date()
+price:float()
+currency:float
+" \
+--no-interaction;
+
 
 2. Db - Schema
 

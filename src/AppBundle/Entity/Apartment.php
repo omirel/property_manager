@@ -29,8 +29,6 @@ class Apartment extends Base
     private $shortName;
 
     /**
-     * @var string
-     *
      * @ORM\ManyToOne(targetEntity="Building", inversedBy="apartments")
      */
     private $building;
