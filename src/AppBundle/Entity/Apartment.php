@@ -81,7 +81,7 @@ class Apartment extends Base
      * @ORM\JoinTable(
      *      name="apartment_meter",
      *      joinColumns={@ORM\JoinColumn(name="apartment_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="meter_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="meter_id", referencedColumnName="id", unique=true)}
      *      )
      */
     private $meters;
