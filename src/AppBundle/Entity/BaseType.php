@@ -17,6 +17,14 @@ class BaseType extends Base
     protected $title;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle() ?: '';
+    }
+
+    /**
      * Set title
      *
      * @param string $title
@@ -38,14 +46,6 @@ class BaseType extends Base
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getTitle() ?: '';
     }
 }
 

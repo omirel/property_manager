@@ -2,7 +2,6 @@
 // src/AppBundle/Admin/AddressAdmin.php
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -25,18 +24,6 @@ class MeterAdmin extends BaseAdmin
                     'inline' => 'table',
                     'sortable' => 'id',
                 ))
-//                ->add('meterreadings', 'sonata_type_model', array(
-//                        // 'multiple' => true,
-//                        // 'by_reference' => false,
-//                        'btn_add' => 'Write down reading'
-//                    )
-//                )
-//                ->add('Meterreadings', 'sonata_type_model', array(
-//                        'multiple' => true,
-//                        // 'by_reference' => false,
-//                        'btn_add' => 'Write down reading'
-//                    )
-//                )
             ->end()
         ;
     }

@@ -26,6 +26,18 @@ services:
       arguments: [~, AppBundle\Entity\Apartment, ~]
       tags:
         - { name: sonata.admin, manager_type: orm, group: Properties, label: Apartments }
+  admin.lettings:
+      class: AppBundle\Admin\LettingAdmin
+      arguments: [~, AppBundle\Entity\Letting, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Lettings }
+      calls:
+        - [addChild, ['@admin.letting_sidecosts']]
+  admin.letting_sidecosts:
+      class: AppBundle\Admin\LettingsidecostAdmin
+      arguments: [~, AppBundle\Entity\Lettingsidecost, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Letting Sidecosts}
   admin.meters:
       class: AppBundle\Admin\MeterAdmin
       arguments: [~, AppBundle\Entity\Meter, ~]
@@ -74,9 +86,19 @@ services:
         arguments: [~, AppBundle\Entity\MeterType, ~]
         tags:
           - { name: sonata.admin, manager_type: orm, group: System, label: Meter Types}
+  admin.cost_types:
+        class: AppBundle\Admin\CostTypeAdmin
+        arguments: [~, AppBundle\Entity\CostType, ~]
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: System, label: Cost Types}
   admin.units:
         class: AppBundle\Admin\UnitAdmin
         arguments: [~, AppBundle\Entity\Unit, ~]
         tags:
           - { name: sonata.admin, manager_type: orm, group: System, label: Units}
+  admin.currencies:
+        class: AppBundle\Admin\CurrencyAdmin
+        arguments: [~, AppBundle\Entity\Currency, ~]
+        tags:
+          - { name: sonata.admin, manager_type: orm, group: System, label: Currencies}
 

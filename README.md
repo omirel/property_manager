@@ -109,6 +109,14 @@ title:string(255) \
 --no-interaction;
 
 docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
+--entity="AppBundle:Currency" \
+--fields=" \
+iso:string(3) \
+" \
+--no-interaction;
+
+
+docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
 --entity="AppBundle:Meter" \
 --fields=" \
 meterType
@@ -153,7 +161,7 @@ currency:float
 --no-interaction;
 
 docker exec -it property_manager-dev php bin/console doctrine:generate:entity \
---entity="AppBundle:LettingSidecost" \
+--entity="AppBundle:Lettingsidecost" \
 --fields=" \
 letting
 costType

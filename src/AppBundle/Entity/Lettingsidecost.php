@@ -5,13 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LettingSidecost
+ * Lettingsidecost
  *
  * @ORM\Table(name="letting_sidecost")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\LettingSidecostRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LettingsidecostRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class LettingSidecost extends Base
+class Lettingsidecost extends Base
 {
     /**
      * @ORM\ManyToOne(targetEntity="Letting", inversedBy="lettingsidecosts", cascade={"persist"})
@@ -20,9 +20,7 @@ class LettingSidecost extends Base
     private $letting;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cost_type", type="string")
+     * @ORM\ManyToOne(targetEntity="CostType")
      */
     private $costType;
 
@@ -48,11 +46,23 @@ class LettingSidecost extends Base
     private $price;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="currency", type="float")
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="currencies")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $currency;
+
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $str = $this->getLetting()? $this->getLetting().': ': '';
+        $str .=  $this->getPrice()?: '';
+        $str .=  $this->getCurrency()?: '';
+
+        return $str;
+    }
 
 
     /**
@@ -60,7 +70,7 @@ class LettingSidecost extends Base
      *
      * @param string $letting
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
     public function setLetting($letting)
     {
@@ -84,7 +94,7 @@ class LettingSidecost extends Base
      *
      * @param string $costType
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
     public function setCostType($costType)
     {
@@ -108,7 +118,7 @@ class LettingSidecost extends Base
      *
      * @param \DateTime $dateStart
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
     public function setDateStart($dateStart)
     {
@@ -132,7 +142,7 @@ class LettingSidecost extends Base
      *
      * @param \DateTime $dateEnd
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
     public function setDateEnd($dateEnd)
     {
@@ -156,7 +166,7 @@ class LettingSidecost extends Base
      *
      * @param float $price
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
     public function setPrice($price)
     {
@@ -178,11 +188,11 @@ class LettingSidecost extends Base
     /**
      * Set currency
      *
-     * @param float $currency
+     * @param Currency $currency
      *
-     * @return LettingSidecost
+     * @return Lettingsidecost
      */
-    public function setCurrency($currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
 
@@ -192,7 +202,7 @@ class LettingSidecost extends Base
     /**
      * Get currency
      *
-     * @return float
+     * @return Currency
      */
     public function getCurrency()
     {

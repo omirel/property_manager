@@ -84,8 +84,15 @@ class Apartment extends Base
      */
     private $meters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Letting", mappedBy="apartment", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $lettings;
+
     public function __construct() {
         $this->meters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lettings = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()

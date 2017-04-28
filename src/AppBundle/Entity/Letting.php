@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Letting
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Letting extends Base
 {
     /**
-     * @ORM\OneToMany(targetEntity="Apartment", mappedBy="lettings", cascade={"all"}, orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="Apartment", inversedBy="apartments")
      * @ORM\OrderBy({"id" = "ASC"})
      */
     private $apartment;
@@ -41,12 +42,54 @@ class Letting extends Base
     private $price;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="currency", type="float")
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="currencies")
+     * @ORM\OrderBy({"id" = "ASC"})
      */
     private $currency;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Lettingsidecost", mappedBy="letting", cascade={"persist"})
+     */
+    private $lettingsidecosts;
+
+
+    public function __construct()
+    {
+        $this->lettingsidecosts = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $str = $this->getApartment()? $this->getApartment().': ': '';
+        $str .=  $this->getPrice()?: '';
+        $str .=  $this->getCurrency()?: '';
+
+        return $str;
+    }
+
+    public function getLettingsidecosts()
+    {
+        return $this->lettingsidecosts;
+    }
+
+    public function addLettingsidecost(Lettingsidecost $lettingsidecost) {
+        if ($this->lettingsidecosts->contains($lettingsidecost)) {
+            return;
+        }
+        $this->lettingsidecosts->add($lettingsidecost);
+        $lettingsidecost->setLetting($this);
+    }
+
+    public function removeLettingsidecost(Lettingsidecost $lettingsidecost) {
+        if (!$this->meterreadings->contains($lettingsidecost)) {
+            return;
+        }
+        $this->lettingsidecosts->removeElement($lettingsidecost);
+        $lettingsidecost->removeLetting($this);
+    }
 
     /**
      * Set apartment
@@ -147,11 +190,11 @@ class Letting extends Base
     /**
      * Set currency
      *
-     * @param float $currency
+     * @param Currency $currency
      *
      * @return Letting
      */
-    public function setCurrency($currency)
+    public function setCurrency(Currency $currency)
     {
         $this->currency = $currency;
 
@@ -161,7 +204,7 @@ class Letting extends Base
     /**
      * Get currency
      *
-     * @return float
+     * @return Currency
      */
     public function getCurrency()
     {

@@ -16,7 +16,10 @@ class MeterreadingAdmin extends BaseAdmin
     {
         $formMapper
             ->add('meter')
-            ->add('date')
+            ->add('date', 'sonata_type_date_picker', array(
+                'dp_use_current' => true,
+                'format'=>'dd.MM.yyyy'
+            ))
             ->add('value')
         ;
     }
