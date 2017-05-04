@@ -19,7 +19,6 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    phpcr_backend:   phpcr_backend
     phpcr_workspace: phpcr_workspace
     phpcr_user:  phpcr_user
     phpcr_pass:  phpcr_pass
