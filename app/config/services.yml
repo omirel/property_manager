@@ -33,6 +33,13 @@ services:
         - { name: sonata.admin, manager_type: orm, group: Properties, label: Lettings }
       calls:
         - [addChild, ['@admin.letting_sidecosts']]
+  admin.tenants:
+      class: AppBundle\Admin\TenantAdmin
+      arguments: [~, AppBundle\Entity\Tenant, ~]
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: Properties, label: Tenants }
+      calls:
+        - [addChild, ['@admin.lettings']]
   admin.letting_sidecosts:
       class: AppBundle\Admin\LettingsidecostAdmin
       arguments: [~, AppBundle\Entity\Lettingsidecost, ~]
