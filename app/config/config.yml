@@ -137,12 +137,18 @@ sonata_media:
         local:
             directory:  "%kernel.root_dir%/../web/uploads/media"
             create:     false
-#doctrine_phpcr:
-#    odm:
-#        auto_mapping: true
-#        mappings:
-#            SonataMediaBundle:
-#                prefix: Sonata\MediaBundle\PHPCR
+doctrine_phpcr:
+    # configure the PHPCR session
+    session:
+        backend:   '%phpcr_backend%'
+        workspace: '%phpcr_workspace%'
+        username:  '%phpcr_user%'
+        password:  '%phpcr_pass%'
+    odm:
+        auto_mapping: true
+        mappings:
+            SonataMediaBundle:
+                prefix: Sonata\MediaBundle\PHPCR
 #jms_di_extra:
 #    cache_warmer:
 #        enabled: false
