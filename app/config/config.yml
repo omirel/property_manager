@@ -137,6 +137,10 @@ sonata_media:
         local:
             directory:  "%kernel.root_dir%/../web/uploads/media"
             create:     false
+    providers:
+        image:
+            resizer: sonata.media.resizer.square
+
 doctrine_phpcr:
     # configure the PHPCR session
     session:
