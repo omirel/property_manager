@@ -30,6 +30,14 @@ class AppKernel extends Kernel
 
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
+
+//            new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
