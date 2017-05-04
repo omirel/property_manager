@@ -18,6 +18,9 @@ class PersonAdmin extends AbstractAdmin
                 'class' => 'col-md-6',
                 'description' => 'This section contains general person settings...'
             ))
+            ->add('image', 'sonata_type_model_list', array(),
+                array('link_parameters' => array('context' => 'people'))
+            )
             ->add('firstname', 'text')
             ->add('middlename', null, array(
                 'help' => 'Set the middlename only of it exists'
@@ -82,6 +85,9 @@ class PersonAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('image', 'string',
+                array('template' => 'SonataMediaBundle:MediaAdmin:list_image.html.twig')
+            )
             ->addIdentifier('firstname')
             ->add('middlename')
             ->add('surname')

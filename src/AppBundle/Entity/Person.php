@@ -15,6 +15,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Person extends Base
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
+     */
+    private $image;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
@@ -81,6 +86,30 @@ class Person extends Base
         $this->addresses->add($personAddress);
 
         return $this;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Application\Sonata\MediaBundle\Entity\Mediag $image
+     *
+     * @return Person
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
