@@ -181,6 +181,8 @@ docker exec -it property_manager-dev php bin/console doctrine:schema:create
 b.) Update schema: 
 docker exec -it property_manager-dev php bin/console doctrine:schema:update --force 
 
+c.) Create Media files
+docker exec -it property_manager-dev php bin/console sonata:easy-extends:generate --dest=src SonataMediaBundle
 
 3. Admin-User
 

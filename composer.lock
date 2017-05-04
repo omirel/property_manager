@@ -5192,16 +5192,16 @@
         },
         {
             "name": "willdurand/negotiation",
-            "version": "v2.2.1",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/willdurand/Negotiation.git",
-                "reference": "1f210db45723b21edd69f39794662b8d64656b93"
+                "reference": "2ba90aa46b5e77f87b55f149cfd544b8434941d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/1f210db45723b21edd69f39794662b8d64656b93",
-                "reference": "1f210db45723b21edd69f39794662b8d64656b93",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/2ba90aa46b5e77f87b55f149cfd544b8434941d9",
+                "reference": "2ba90aa46b5e77f87b55f149cfd544b8434941d9",
                 "shasum": ""
             },
             "require": {
@@ -5213,7 +5213,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -5240,7 +5240,7 @@
                 "header",
                 "negotiation"
             ],
-            "time": "2016-10-14 09:17:47"
+            "time": "2017-05-04 12:15:48"
         },
         {
             "name": "zendframework/zenddiagnostics",
