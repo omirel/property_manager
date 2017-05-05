@@ -1,0 +1,7 @@
+{% for language in languages %}
+    {% if language.code == app.request.locale %}
+        <li><a href="#"><strong>{{ language.code }}</strong></a></li>
+    {% else %}
+        <li><a href="{{ path(app.request.attributes.get('_route'),{'locale': language.code | lower }) }}">{{ language.code }}</a></li>
+    {%  endif %}
+{% endfor %}
