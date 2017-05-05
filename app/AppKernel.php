@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
 
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
