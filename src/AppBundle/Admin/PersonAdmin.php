@@ -32,7 +32,11 @@ class PersonAdmin extends AbstractAdmin
                     'Female' => 'f',
                 )
             ))
-            ->add('dateOfBirth', 'date')
+            ->add('dateOfBirth', 'date', array(
+                'pattern' => 'dd MMM y G',
+                'locale' => 'ru',
+                'timezone' => 'Europe/Paris',
+            ))
             ->end()
             ->with('Addresses & Communication', array(
                 'class' => 'col-md-6',
@@ -99,7 +103,8 @@ class PersonAdmin extends AbstractAdmin
                 'catalogue' => 'AppBundle'
             ))
             ->add('dateOfBirth', null, array(
-                'format' => 'd.m.Y'
+                'locale' => 'en',
+                'timezone' => 'Europe/Paris',
             ))
             ->addIdentifier('addresses')
             ->add('_action', null, array(

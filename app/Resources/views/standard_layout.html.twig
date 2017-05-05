@@ -64,9 +64,7 @@ file that was distributed with this source code.
         <script src="{{ asset(javascript) }}"></script>
         {% endfor %}
     {% endblock %}
-
-        {% set locale = app.request.locale %}
-
+        {% set locale = app.session.get('_locale') %}
         {# localize moment #}
         {% if locale[:2] != 'en' %}
         <script src="{{ asset(
@@ -207,6 +205,7 @@ file that was distributed with this source code.
                                     {% block sonata_top_nav_menu_user_block %}
                                         <li class="dropdown user-menu">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                {{ app.user }} ({{ app.user.locale }})
                                                 <i class="fa fa-user fa-fw" aria-hidden="true"></i> <i class="fa fa-caret-down" aria-hidden="true"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-user">

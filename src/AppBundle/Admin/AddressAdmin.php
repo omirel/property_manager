@@ -60,7 +60,10 @@ class AddressAdmin extends BaseAdmin
                 ),
                 'catalogue' => 'AppBundle'
             ))
-            ->add('createdAt')
+            ->add('createdAt', null, array(
+                'locale' => 'en',
+                'timezone' => 'Europe/Paris',
+            ))
             ->add('otherAddressDetails', 'text', array(
                 'header_style' => 'width: 35%',
                 'collapse' => array(

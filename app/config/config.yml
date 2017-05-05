@@ -7,7 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 framework:
     translator:
-      fallbacks: [en]
+      fallbacks: [en, ru]
       paths:
         - '%kernel.root_dir%/Resources/translations'
     secret: '%secret%'
@@ -35,6 +35,10 @@ framework:
 
 # Twig Configuration
 twig:
+    globals:
+      languages:
+        - { code: en, language: en }
+        - { code: ru, language: ru }
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes:

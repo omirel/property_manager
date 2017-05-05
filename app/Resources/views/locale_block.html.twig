@@ -1,7 +1,8 @@
+{% set locale = app.session.get('_locale') %}
 {% for language in languages %}
-    {% if language.code == app.request.locale %}
+    {% if language.code == locale %}
         <li><a href="#"><strong>{{ language.code }}</strong></a></li>
     {% else %}
-        <li><a href="{{ path(app.request.attributes.get('_route'),{'locale': language.code | lower }) }}">{{ language.code }}</a></li>
+        <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge ({'_locale': language.code | lower})) }}">{{ language.code }}</a></li>
     {%  endif %}
 {% endfor %}
