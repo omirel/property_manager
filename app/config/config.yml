@@ -88,6 +88,24 @@ jms_di_extra:
         - Sonata\AdminBundle\Annotation
 
 sonata_admin:
+    templates:
+      layout:                         standard_layout.html.twig
+      ajax:                           SonataAdminBundle::ajax_layout.html.twig
+      list:                           SonataAdminBundle:CRUD:list.html.twig
+      show:                           SonataAdminBundle:CRUD:show.html.twig
+      show_compare:                   SonataAdminBundle:CRUD:show_compare.html.twig
+      edit:                           SonataAdminBundle:CRUD:edit.html.twig
+      history:                        SonataAdminBundle:CRUD:history.html.twig
+      preview:                        SonataAdminBundle:CRUD:preview.html.twig
+      delete:                         SonataAdminBundle:CRUD:delete.html.twig
+      batch:                          SonataAdminBundle:CRUD:list__batch.html.twig
+      acl:                            SonataAdminBundle:CRUD:acl.html.twig
+      action:                         SonataAdminBundle:CRUD:action.html.twig
+      select:                         SonataAdminBundle:CRUD:list__select.html.twig
+      filter:                         SonataAdminBundle:Form:filter_admin_fields.html.twig
+      dashboard:                      SonataAdminBundle:Core:dashboard.html.twig
+      search:                         SonataAdminBundle:Core:search.html.twig
+      user_block:                     user_block.html.twig
     security:
       # the default value
       handler: sonata.admin.security.handler.role
@@ -142,6 +160,13 @@ sonata_media:
     providers:
         image:
             resizer: sonata.media.resizer.square
+
+sonata_intl:
+    timezone:
+      default: Europe/Paris
+      locales:
+          en: Europe/Paris
+          ru: Europe/London
 
 doctrine_phpcr:
     # configure the PHPCR session
